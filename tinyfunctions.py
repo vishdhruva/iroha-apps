@@ -3,8 +3,15 @@ from iroha import Iroha, IrohaCrypto, IrohaGrpc
 from iroha.primitive_pb2 import *
 import ed25519
 
+
 net = IrohaGrpc('localhost:50051')
 admin = Iroha("admin@test")
+
+
+def get_keypair(account_id):
+    signing_key = open(f"{account_id}.prib","rb").read()
+    verifying_key = open(f"{account_id}.pub","rb").read()
+    return signing_key, verifying_key
 ADMIN_KEY = "f101537e319568c765b2cc89698325604991dca57b9716b58016b253506cab70"
 
 
@@ -114,7 +121,11 @@ def transfer_assets(account_id, dest_account_id, asset_id, amount):
     return tx
 
 # %%
-
+def GetSignatories(account_id):
+    query = admin.query('GetSignatories', account_id=account_id)
+    IrohaCrypto.sign_query(query, "f101537e319568c765b2cc89698325604991dca57b9716b58016b253506cab70")
+    response = net.send_query(query)
+    print(f'Account Signatories\n{response}')
 
 # %%
 
