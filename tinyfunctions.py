@@ -2,6 +2,7 @@
 from iroha import Iroha, IrohaCrypto, IrohaGrpc
 from iroha.primitive_pb2 import *
 import ed25519
+import json
 
 net = IrohaGrpc('localhost:50051')
 admin = Iroha("admin@test")
@@ -114,9 +115,22 @@ def transfer_assets(account_id, dest_account_id, asset_id, amount):
     return tx
 
 # %%
+def init_genesis():
+    # Generate genesis block in JSON format
+    block = {}
+    payload = {}
+    transactions = {}
+
+    payload['txNumber'] = 1
+    payload['height'] = "1"
+    payload['prevBlockHash'] = "0000000000000000000000000000000000000000000000000000000000000000"
+
+    
+
 
 
 # %%
+def init_config():
 
 
 
