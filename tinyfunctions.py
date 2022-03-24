@@ -2,6 +2,7 @@
 from iroha import Iroha, IrohaCrypto, IrohaGrpc
 from iroha.primitive_pb2 import *
 import ed25519
+import json
 
 
 net = IrohaGrpc('localhost:50051')
@@ -126,8 +127,23 @@ def GetSignatories(account_id):
     IrohaCrypto.sign_query(query, "f101537e319568c765b2cc89698325604991dca57b9716b58016b253506cab70")
     response = net.send_query(query)
     print(f'Account Signatories\n{response}')
+    
+def init_genesis():
+    # Generate genesis block in JSON format
+    block = {}
+    payload = {}
+    transactions = {}
+
+    payload['txNumber'] = 1
+    payload['height'] = "1"
+    payload['prevBlockHash'] = "0000000000000000000000000000000000000000000000000000000000000000"
+
+    
+
+
 
 # %%
+def init_config():
 
 
 
